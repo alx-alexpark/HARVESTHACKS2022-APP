@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:harvesthacks2022/screens/home.dart';
-import 'package:harvesthacks2022/screens/sign_up.dart';
-import 'package:harvesthacks2022/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/widgets/form_input_old.dart';
+
+import '../widgets/form_input_old.dart';
+import '../screens/home.dart';
+import '../screens/sign_up.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   String emailValidator(String value) {
-    String pattern =
+    const String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {

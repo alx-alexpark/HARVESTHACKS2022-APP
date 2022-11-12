@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/pages/register.dart';
 
 import '../constants/colors.dart';
 import '../widgets/form_input.dart';
 import 'login/waves.dart';
 import 'login/header.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  final String email;
+  final String password;
+
+  const RegisterPage({super.key, required this.email, required this.password});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController emailInputController;
   late TextEditingController passwordInputController;
-  final GlobalKey<FormState> _loginFormKey = GlobalKey();
+  final GlobalKey<FormState> _registerFormKey = GlobalKey();
 
   @override
   void initState() {
@@ -29,11 +31,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Stack(
-          children: [
-            Column(
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Inputs
@@ -52,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 25.0),
 
-                // Login buttons
+                // Register buttons
                 Row(
                   children: [
                     Expanded(
@@ -66,19 +68,14 @@ class _LoginPageState extends State<LoginPage> {
                             side: BorderSide(color: LightTheme.foreground),
                           ),
                         ),
-                        child: const Text("Login"),
+                        child: const Text("Register"),
                       ),
                     ),
                     const SizedBox(width: 25.0),
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const RegisterPage(
-                              email: '',
-                              password: '',
-                            ),
-                          ));
+                          Navigator.pop(context);
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.transparent,
@@ -98,14 +95,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
+          ),
 
-            // Title (top)
-            const Header(subheading: 'Sign in to your\naccount'),
+          // Title (top)
+          const Header(subheading: 'Sign in to your\naccount'),
 
-            // Waves (bottom)
-            const BottomWaves(),
-          ],
-        ),
+          // Waves (bottom)
+          // const BottomWaves(),
+        ],
       ),
     );
   }

@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(fontFamily: 'Montserrat'),
             home: SafeArea(
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 body: FirebaseAuth.instance.currentUser != null
                     ? const HomePage()
                     : LoginPage(),
