@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import '../constants/colors.dart';
 
 class StyleConstants {
   static const TextStyle onboardingText =
       TextStyle(fontSize: 20.0, color: Colors.white);
 
-  static const TextStyle loginHintTextStyle = TextStyle(
-    color: Colors.black,
+  static TextStyle loginHintTextStyle = TextStyle(
+    color: LightTheme.foregroundAlt,
     fontFamily: 'OpenSans',
   );
 
@@ -16,16 +17,16 @@ class StyleConstants {
   );
 
   static BoxDecoration loginBoxDecorationStyle = BoxDecoration(
-    border: Border.all(color: Colors.black26),
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(30.0),
+    border: Border.all(color: Colors.transparent),
+    borderRadius: BorderRadius.circular(50.0),
     boxShadow: const [
       BoxShadow(
-        color: Colors.black12,
-        blurRadius: 6.0,
-        offset: Offset(0, 2),
+        color: Color(0x25000000),
+        blurRadius: 8.0,
+        offset: Offset(0, 4),
       ),
     ],
+    color: Colors.white,
   );
 
   static const TextStyle answerText = TextStyle(
@@ -37,7 +38,6 @@ class StyleConstants {
 
   static const textAnswer = TextStyle(
     color: Colors.white,
-    //fontWeight: FontWeight.bold,
     fontFamily: 'OpenSans',
     fontSize: 15,
   );

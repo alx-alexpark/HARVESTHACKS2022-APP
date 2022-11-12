@@ -57,10 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  static List<Widget> _widgetOptions = <Widget>[
-    Discover(),
-    MySets(),
-    AccountSettings(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const Discover(),
+    const MySets(),
+    const AccountSettings(),
   ];
 
   @override
@@ -80,19 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
         items: [
           /// Home
           DotNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             selectedColor: Colors.purple,
           ),
 
           /// Search
           DotNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: const Icon(Icons.list),
             selectedColor: Colors.orange,
           ),
 
           /// Profile
           DotNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
             selectedColor: Colors.teal,
           ),
         ],

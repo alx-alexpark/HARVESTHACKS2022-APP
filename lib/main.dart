@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:harvesthacks2022/screens/Home.dart';
-import 'package:harvesthacks2022/screens/login.dart';
+import 'package:harvesthacks2022/screens/home.dart';
+// import 'package:harvesthacks2022/screens/login.dart';
 import 'package:harvesthacks2022/screens/sign_up.dart';
+
+import '../pages/login.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -11,11 +13,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  //   // This widget is the root of your application.
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -23,11 +27,10 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error.toString());
-          return Center(
-            child: Container(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.red,
-              ),
+
+          return const Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.red,
             ),
           );
         }
@@ -36,18 +39,21 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: 'Montserrat'),
             home: SafeArea(
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 body: FirebaseAuth.instance.currentUser != null
-                    ? HomePage()
-                    : SignupScreen(),
+                    ? const HomePage()
+                    : LoginPage(),
+                // : SignupScreen(),
               ),
             ),
           );
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
