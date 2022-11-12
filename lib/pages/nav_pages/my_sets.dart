@@ -19,25 +19,21 @@ class MySets extends StatelessWidget {
           var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
           print(userData?["saved"]);
           List<Widget> userLists = [];
-          Future.forEach(
-            userSavedSetsRefs,
-            (element) async {
-              var data = await element.get();
-              print("Name: ");
-              print(data["name"]);
-              // print(data.data().toString().contains("name")
-              //     ? data.get("name")
-              //     : "");
+          Future.forEach(userSavedSetsRefs, (element) async {
+            var data = await element.get();
+            print("Name: ");
+            print(data["name"]);
+            // print(data.data().toString().contains("name")
+            //     ? data.get("name")
+            //     : "");
 
-              userLists.add(
-                SetBox(
-                  setName: data["name"],
-                  cardsAmount: (data["cards"] as List).length,
-                  id: data["id"],
-                ),
-              );
-            },
-          );
+            // userLists.add(
+            //   SetBox(
+            //       setName: data["name"],
+            //       cardsAmt: (data["cards"] as List).length,
+            //       id: data["id"]),
+            // );
+          });
 
           return Center(child: ListView(children: userLists));
         } else {

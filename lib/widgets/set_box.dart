@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harvesthacks2022/pages/flashcard_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SetBox extends StatelessWidget {
   final String setName;
@@ -16,17 +17,16 @@ class SetBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        var thisSet = await FirebaseFirestore.instance
+            .collection("sets")
+            .where("id", isEqualTo: id)
+            .get();
+        var terms = (thisSet.docs.first.get("cards") as List);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => FlashcardView(
-              terms: [
-                // TODO: fetch data from firebase
-                {"term": "a", "definition": "1"},
-                {"term": "c", "definition": "2"},
-                {"term": "b", "definition": "3"},
-                {"term": "d", "definition": "4"},
-              ],
+              terms: terms,
             ),
           ),
         );
