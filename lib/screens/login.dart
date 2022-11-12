@@ -4,7 +4,6 @@ import 'package:harvesthacks2022/screens/sign_up.dart';
 import 'package:harvesthacks2022/utils/style_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:trailqr/screens/bottomBarScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

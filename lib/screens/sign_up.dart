@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harvesthacks2022/screens/Home.dart';
 // import 'package:path/path.dart' as Path;
-// import 'package:trailqr/screens/bottomBarScreen.dart';
 import 'package:harvesthacks2022/screens/login.dart';
 import 'package:harvesthacks2022/utils/style_constants.dart';
 
