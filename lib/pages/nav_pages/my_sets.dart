@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:harvesthacks2022/widgets/set_box.dart';
 
 class MySets extends StatelessWidget {
@@ -39,7 +37,7 @@ class MySets extends StatelessWidget {
 
             return Center(child: ListView(children: userLists));
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }

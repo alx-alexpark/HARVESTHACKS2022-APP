@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void login() async {
+  void _handleLogin() async {
     print("LOGIN ATTEMPTED");
 
     FirebaseAuth.instance
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: login,
+                        onPressed: _handleLogin,
                         style: TextButton.styleFrom(
                           backgroundColor: LightTheme.foreground,
                           foregroundColor: LightTheme.background,

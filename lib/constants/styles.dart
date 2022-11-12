@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
 class StyleConstants {
   static const TextStyle onboardingText =
