@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class StyleConstants {
-  static TextStyle onboardingText =
+  static const TextStyle onboardingText =
       TextStyle(fontSize: 20.0, color: Colors.white);
 
-  static TextStyle loginHintTextStyle = TextStyle(
+  static const TextStyle loginHintTextStyle = TextStyle(
     color: Colors.black,
     fontFamily: 'OpenSans',
   );
 
-  static TextStyle loginLabelTextStyle = TextStyle(
+  static const TextStyle loginLabelTextStyle = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
     fontFamily: 'OpenSans',
@@ -19,7 +19,7 @@ class StyleConstants {
     border: Border.all(color: Colors.black26),
     color: Colors.white,
     borderRadius: BorderRadius.circular(30.0),
-    boxShadow: [
+    boxShadow: const [
       BoxShadow(
         color: Colors.black12,
         blurRadius: 6.0,
@@ -28,14 +28,14 @@ class StyleConstants {
     ],
   );
 
-  static TextStyle answerText = TextStyle(
+  static const TextStyle answerText = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
     fontFamily: 'OpenSans',
     fontSize: 20,
   );
 
-  static final textAnswer = TextStyle(
+  static const textAnswer = TextStyle(
     color: Colors.white,
     //fontWeight: FontWeight.bold,
     fontFamily: 'OpenSans',
