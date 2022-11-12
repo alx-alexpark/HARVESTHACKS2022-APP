@@ -1,0 +1,119 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:harvesthacks2022/constants/colors.dart';
+
+import '../widgets/form_input.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  late TextEditingController emailInputController;
+  late TextEditingController passwordInputController;
+  final GlobalKey<FormState> _loginFormKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    emailInputController = TextEditingController();
+    passwordInputController = TextEditingController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FormInput(
+                  icon: Icons.email,
+                  prompt: "Email",
+                  textEditingController: emailInputController,
+                  textInputType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 25.0),
+                FormInput(
+                  icon: Icons.lock,
+                  prompt: "Password",
+                  textEditingController: passwordInputController,
+                  obscure: true,
+                ),
+                const SizedBox(height: 25.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: LightTheme.foreground,
+                          foregroundColor: LightTheme.background,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            side: BorderSide(color: LightTheme.foreground),
+                          ),
+                        ),
+                        child: const Text("Login"),
+                      ),
+                    ),
+                    const SizedBox(width: 25.0),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          foregroundColor: LightTheme.foreground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            side: BorderSide(
+                              color: LightTheme.foreground,
+                              width: 4.0,
+                            ),
+                          ),
+                        ),
+                        child: const Text("Register"),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Positioned(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Unflash",
+                    style: TextStyle(
+                      fontSize: 48.0,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Divider(
+                      color: LightTheme.foreground,
+                      thickness: 3.0,
+                    ),
+                  ),
+                  const Text(
+                    "Sign in to your\naccount",
+                    style: TextStyle(
+                      fontSize: 32.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
