@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../constants/styles.dart';
 
 class FormInput extends StatelessWidget {
   final IconData icon;
