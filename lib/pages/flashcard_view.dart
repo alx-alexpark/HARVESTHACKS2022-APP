@@ -3,6 +3,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:harvesthacks2022/constants/colors.dart';
+import 'package:harvesthacks2022/pages/flashcard_view/top.dart';
 import 'package:harvesthacks2022/widgets/card_face.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:harvesthacks2022/paraphrase_api.dart';
@@ -36,66 +37,10 @@ class _FlashcardViewState extends State<FlashcardView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Top
-        Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: GlobalTheme.accent,
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: const Icon(Icons.arrow_back_ios_rounded),
-                ),
-              ),
-
-              const SizedBox(width: 10.0),
-
-              // Name and word count
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Name
-                  Text(
-                    "John Doe",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: LightTheme.foreground,
-                    ),
-                  ),
-
-                  // Word count
-                  Text(
-                    "100 words",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: LightTheme.foregroundAlt,
-                    ),
-                  ),
-                ],
-              ),
-
-              // Progress bar
-              Expanded(
-                child: LinearPercentIndicator(
-                  animation: true,
-                  lineHeight: 20.0,
-                  animationDuration: 2500,
-                  percent: 0.8,
-                  center: const Text("80.0%"),
-                  linearStrokeCap: LinearStrokeCap.roundAll,
-                  progressColor: Colors.green,
-                  barRadius: const Radius.circular(15.0),
-                ),
-              ),
-            ],
-          ),
+        TopBar(
+          author: "John Doe",
+          cardsLeft: 10,
+          totalCards: 20,
         ),
 
         // Card
@@ -123,31 +68,43 @@ class _FlashcardViewState extends State<FlashcardView> {
             }),
 
         // Bottom
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  index++;
-                  if (!flipCardController.state!.isFront) {
-                    flipCardController.toggleCard();
-                  }
-                });
-              },
-              child: Text("test"),
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  index++;
-                  if (!flipCardController.state!.isFront) {
-                    flipCardController.toggleCard();
-                  }
-                });
-              },
-              child: Text("test"),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(bottom: 40.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    index++;
+                    if (!flipCardController.state!.isFront) {
+                      flipCardController.toggleCard();
+                    }
+                  });
+                },
+                child: const Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                  size: 75.0,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    index++;
+                    if (!flipCardController.state!.isFront) {
+                      flipCardController.toggleCard();
+                    }
+                  });
+                },
+                child: const Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 75.0,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -155,7 +112,60 @@ class _FlashcardViewState extends State<FlashcardView> {
 
   Widget _resultsView() {
     return Column(
-      children: [],
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TopBar(
+          author: "John Doe",
+          cardsLeft: 10,
+          totalCards: 20,
+        ),
+
+        // Statistics
+        Container(
+          child: const Text("Learning"),
+        ),
+        Container(
+          child: const Text("Proficient"),
+        ),
+        Container(
+          child: const Text("Mastered"),
+        ),
+
+        Padding(
+          padding: const EdgeInsets.only(bottom: 40.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    index = 0;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: GlobalTheme.accent,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 20.0,
+                    ),
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        color: LightTheme.background,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 
