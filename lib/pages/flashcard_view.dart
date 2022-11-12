@@ -6,7 +6,7 @@ import 'package:harvesthacks2022/widgets/card_face.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class FlashcardView extends StatefulWidget {
-  final List<Map<String, String>> terms;
+  final List terms;
 
   const FlashcardView({
     super.key,

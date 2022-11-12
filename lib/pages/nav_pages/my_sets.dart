@@ -27,12 +27,12 @@ class MySets extends StatelessWidget {
               //     ? data.get("name")
               //     : "");
 
-              userLists.add(
-                SetBox(
-                    setName: data["name"],
-                    cardsAmt: (data["cards"] as List).length,
-                    id: data["id"]),
-              );
+              // userLists.add(
+              //   SetBox(
+              //       setName: data["name"],
+              //       cardsAmt: (data["cards"] as List).length,
+              //       id: data["id"]),
+              // );
             });
 
             return Center(child: ListView(children: userLists));
