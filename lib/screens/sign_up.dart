@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/screens/Home.dart';
+import 'package:harvesthacks2022/screens/home.dart';
 // import 'package:path/path.dart' as Path;
 import 'package:harvesthacks2022/screens/login.dart';
 import 'package:harvesthacks2022/utils/style_constants.dart';

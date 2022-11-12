@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:harvesthacks2022/screens/Home.dart';
+import 'package:harvesthacks2022/screens/home.dart';
 import 'package:harvesthacks2022/screens/sign_up.dart';
 import 'package:harvesthacks2022/utils/style_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
