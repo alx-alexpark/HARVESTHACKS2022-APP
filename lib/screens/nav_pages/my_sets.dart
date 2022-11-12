@@ -1,11 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:harvesthacks2022/widgets/set_box.dart';
 
 class MySets extends StatelessWidget {
   const MySets({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var userData = snapshot.data?.data();
+            var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
+            List<Widget> userLists = [];
+            userSavedSetsRefs.forEach((element) {
+              var data = element.get().then((DocumentSnapshot doc) {
+                final data = doc.data() as Map<String, dynamic>;
+                userLists.add(SetBox(
+                    setName: data["name"],
+                    cardsAmt: data["cardsAmount"],
+                    id: data["id"]));
+              });
+            });
+            return ListView(children: userLists);
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
   }
 }

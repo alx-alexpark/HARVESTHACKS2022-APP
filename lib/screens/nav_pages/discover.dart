@@ -10,9 +10,9 @@ class Discover extends StatelessWidget {
     return StreamBuilder<QuerySnapshot<Object?>>(
         stream: FirebaseFirestore.instance.collection("sets").snapshots(),
         builder: (context, snapshot) {
-          var data =
-              (snapshot as AsyncSnapshot<QuerySnapshot<Object?>>).data!.docs;
           if (snapshot.hasData) {
+            var data =
+                (snapshot as AsyncSnapshot<QuerySnapshot<Object?>>).data!.docs;
             return ListView(
               children: data.map((e) {
                 return SetBox(
