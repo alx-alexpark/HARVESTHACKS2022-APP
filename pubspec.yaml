@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.5
   percent_indicator: ^4.2.2
   flip_card: ^0.6.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
