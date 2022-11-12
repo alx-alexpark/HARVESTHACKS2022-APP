@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:harvesthacks2022/screens/nav_pages/account_and_settings.dart';
+import 'package:harvesthacks2022/screens/nav_pages/discover.dart';
+import 'package:harvesthacks2022/screens/nav_pages/my_sets.dart';
 import 'package:harvesthacks2022/widgets/fade_indexed_stack.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,9 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    Text("Home page"),
-    Text('Lists page'),
-    Text("Accounts page"),
+    Discover(),
+    MySets(),
+    AccountSettings(),
   ];
 
   @override
