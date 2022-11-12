@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:harvesthacks2022/constants/colors.dart';
 import 'package:harvesthacks2022/widgets/card_face.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:harvesthacks2022/paraphrase_api.dart';
 
 class FlashcardView extends StatefulWidget {
   final List terms;
@@ -21,6 +22,8 @@ class FlashcardView extends StatefulWidget {
 class _FlashcardViewState extends State<FlashcardView> {
   late FlipCardController flipCardController;
   int index = 0;
+  List partiallyMaster = [];
+  List master = [];
 
   @override
   void initState() {
@@ -96,19 +99,28 @@ class _FlashcardViewState extends State<FlashcardView> {
         ),
 
         // Card
-        FlipCard(
-          controller: flipCardController,
-          fill: Fill.fillBack,
-          direction: FlipDirection.VERTICAL,
-          front: CardFace(
-            text: widget.terms[index]["term"]!,
-            color: GlobalTheme.accent,
-          ),
-          back: CardFace(
-            text: widget.terms[index]["definition"]!,
-            color: GlobalTheme.accentAlt,
-          ),
-        ),
+        FutureBuilder<Object>(
+            future: ApiUtil.paraphrase(widget.terms[index]["definition"]!),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return FlipCard(
+                  controller: flipCardController,
+                  fill: Fill.fillBack,
+                  direction: FlipDirection.VERTICAL,
+                  front: CardFace(
+                    text: widget.terms[index]["term"]!,
+                    color: GlobalTheme.accent,
+                  ),
+                  back: CardFace(
+                    // text: widget.terms[index]["definition"]!,
+                    text: (snapshot.data as String).replaceAll("\n", ""),
+                    color: GlobalTheme.accentAlt,
+                  ),
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+            }),
 
         // Bottom
         Row(
