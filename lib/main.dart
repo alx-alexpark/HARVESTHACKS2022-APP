@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: 'Montserrat'),
             home: SafeArea(
               child: Scaffold(
                 body: FirebaseAuth.instance.currentUser != null
