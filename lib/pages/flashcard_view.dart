@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:harvesthacks2022/constants/colors.dart';
 import 'package:harvesthacks2022/widgets/card_face.dart';
@@ -18,7 +19,14 @@ class FlashcardView extends StatefulWidget {
 }
 
 class _FlashcardViewState extends State<FlashcardView> {
+  late FlipCardController flipCardController;
   int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    flipCardController = FlipCardController();
+  }
 
   Widget _cardsView() {
     return Column(
@@ -89,8 +97,9 @@ class _FlashcardViewState extends State<FlashcardView> {
 
         // Card
         FlipCard(
+          controller: flipCardController,
           fill: Fill.fillBack,
-          direction: FlipDirection.HORIZONTAL, // default
+          direction: FlipDirection.VERTICAL,
           front: CardFace(
             text: widget.terms[index]["term"]!,
             color: GlobalTheme.accent,
@@ -108,6 +117,9 @@ class _FlashcardViewState extends State<FlashcardView> {
               onTap: () {
                 setState(() {
                   index++;
+                  if (!flipCardController.state!.isFront) {
+                    flipCardController.toggleCard();
+                  }
                 });
               },
               child: Text("test"),
@@ -116,6 +128,9 @@ class _FlashcardViewState extends State<FlashcardView> {
               onTap: () {
                 setState(() {
                   index++;
+                  if (!flipCardController.state!.isFront) {
+                    flipCardController.toggleCard();
+                  }
                 });
               },
               child: Text("test"),
@@ -137,7 +152,7 @@ class _FlashcardViewState extends State<FlashcardView> {
     // View the cards if not at the end,
     // otherwise, view the results screen
     return Scaffold(
-      body: (index < widget.terms.length - 1) ? _cardsView() : _resultsView(),
+      body: (index < widget.terms.length) ? _cardsView() : _resultsView(),
     );
   }
 }

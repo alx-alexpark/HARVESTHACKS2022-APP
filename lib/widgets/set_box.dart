@@ -21,8 +21,11 @@ class SetBox extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => FlashcardView(
               terms: [
-                {"term": "sus", "definition": "mogus"},
-                {"term": "sus", "definition": "mogus"},
+                // TODO: fetch data from firebase
+                {"term": "a", "definition": "1"},
+                {"term": "c", "definition": "2"},
+                {"term": "b", "definition": "3"},
+                {"term": "d", "definition": "4"},
               ],
             ),
           ),
