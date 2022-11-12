@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:harvesthacks2022/widgets/fade_indexed_stack.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -44,6 +46,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _selectedTabIndex = 0;
+
+  void _handleIndexChanged(int i) {
+    setState(() {
+      _selectedTabIndex = i;
+    });
+  }
+
+  static List<Widget> _widgetOptions = <Widget>[
+    Text("Home page"),
+    Text('Lists page'),
+    Text("Accounts page"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
@@ -52,12 +68,44 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      extendBody: false,
+      bottomNavigationBar: DotNavigationBar(
+        enablePaddingAnimation: true,
+        currentIndex: _selectedTabIndex,
+        onTap: _handleIndexChanged,
+        dotIndicatorColor: Colors.black,
+        items: [
+          /// Home
+          DotNavigationBarItem(
+            icon: Icon(Icons.home),
+            selectedColor: Colors.purple,
+          ),
+
+          /// Search
+          DotNavigationBarItem(
+            icon: Icon(Icons.list),
+            selectedColor: Colors.orange,
+          ),
+
+          /// Profile
+          DotNavigationBarItem(
+            icon: Icon(Icons.person),
+            selectedColor: Colors.teal,
+          ),
+        ],
+      ),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(),
+      // make sure state is kept when switching pages
+      body: FadeIndexedStack(
+        index: _selectedTabIndex,
+        children: _widgetOptions,
+      ),
     );
   }
 }
+
+// enum _SelectedTab { home, favorite, search, person }
