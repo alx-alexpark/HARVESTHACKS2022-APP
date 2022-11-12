@@ -9,36 +9,37 @@ class MySets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("users")
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var userData = snapshot.data?.data();
-            var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
-            print(userData?["saved"]);
-            List<Widget> userLists = [];
-            Future.forEach(userSavedSetsRefs, (element) async {
-              var data = await element.get();
-              print("Name: ");
-              print(data["name"]);
-              // print(data.data().toString().contains("name")
-              //     ? data.get("name")
-              //     : "");
+      stream: FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var userData = snapshot.data?.data();
+          var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
+          print(userData?["saved"]);
+          List<Widget> userLists = [];
+          Future.forEach(userSavedSetsRefs, (element) async {
+            var data = await element.get();
+            print("Name: ");
+            print(data["name"]);
+            // print(data.data().toString().contains("name")
+            //     ? data.get("name")
+            //     : "");
 
-              // userLists.add(
-              //   SetBox(
-              //       setName: data["name"],
-              //       cardsAmt: (data["cards"] as List).length,
-              //       id: data["id"]),
-              // );
-            });
+            // userLists.add(
+            //   SetBox(
+            //       setName: data["name"],
+            //       cardsAmt: (data["cards"] as List).length,
+            //       id: data["id"]),
+            // );
+          });
 
-            return Center(child: ListView(children: userLists));
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
+          return Center(child: ListView(children: userLists));
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
