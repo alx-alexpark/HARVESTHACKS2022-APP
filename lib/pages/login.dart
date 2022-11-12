@@ -3,8 +3,8 @@ import 'package:harvesthacks2022/pages/register.dart';
 
 import '../constants/colors.dart';
 import '../widgets/form_input.dart';
-import 'login/waves.dart';
-import 'login/header.dart';
+import './login/waves.dart';
+import './login/header.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,9 +74,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const RegisterPage(
-                              email: '',
-                              password: '',
+                            builder: (context) => RegisterPage(
+                              email: emailInputController.text,
+                              password: passwordInputController.text,
                             ),
                           ));
                         },
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
             const Header(subheading: 'Sign in to your\naccount'),
 
             // Waves (bottom)
-            const BottomWaves(),
+            // const BottomWaves(),
           ],
         ),
       ),

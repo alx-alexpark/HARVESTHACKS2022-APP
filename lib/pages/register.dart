@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harvesthacks2022/pages/register.dart';
 
 import '../constants/colors.dart';
 import '../widgets/form_input.dart';
@@ -9,7 +10,11 @@ class RegisterPage extends StatefulWidget {
   final String email;
   final String password;
 
-  const RegisterPage({super.key, required this.email, required this.password});
+  const RegisterPage({
+    super.key,
+    required this.email,
+    required this.password,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -18,24 +23,29 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController emailInputController;
   late TextEditingController passwordInputController;
-  final GlobalKey<FormState> _registerFormKey = GlobalKey();
+  late TextEditingController passwordConfirmInputController;
+  final GlobalKey<FormState> _loginFormKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     emailInputController = TextEditingController();
     passwordInputController = TextEditingController();
+    passwordConfirmInputController = TextEditingController();
+
+    emailInputController.text = widget.email;
+    passwordInputController.text = widget.password;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(
+      body: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Stack(
+          children: [
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Inputs
@@ -50,6 +60,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   icon: Icons.lock,
                   prompt: "Password",
                   textEditingController: passwordInputController,
+                  obscure: true,
+                ),
+                const SizedBox(height: 25.0),
+                FormInput(
+                  icon: Icons.lock,
+                  prompt: "Confirm password",
+                  textEditingController: passwordConfirmInputController,
                   obscure: true,
                 ),
                 const SizedBox(height: 25.0),
@@ -88,21 +105,21 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ),
-                        child: const Text("Need an account?"),
+                        child: const Text("Already a user?"),
                       ),
                     ),
                   ],
                 ),
               ],
             ),
-          ),
 
-          // Title (top)
-          const Header(subheading: 'Sign in to your\naccount'),
+            // Title (top)
+            const Header(subheading: 'Make your new\naccount'),
 
-          // Waves (bottom)
-          // const BottomWaves(),
-        ],
+            // Waves (bottom)
+            // const BottomWaves(),
+          ],
+        ),
       ),
     );
   }
