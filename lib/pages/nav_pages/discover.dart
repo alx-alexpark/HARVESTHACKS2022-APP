@@ -10,7 +10,9 @@ class Discover extends StatelessWidget {
     return StreamBuilder<QuerySnapshot<Object?>>(
       stream: FirebaseFirestore.instance.collection("sets").snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (!snapshot.hasData) {
+          return const CircularProgressIndicator();
+        } else {
           var data = snapshot.data!.docs;
           return ListView(
             children: data.map((e) {
@@ -25,8 +27,6 @@ class Discover extends StatelessWidget {
               );
             }).toList(),
           );
-        } else {
-          return const CircularProgressIndicator();
         }
       },
     );
