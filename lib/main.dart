@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:harvesthacks2022/screens/home.dart';
-// import 'package:harvesthacks2022/screens/login.dart';
-import 'package:harvesthacks2022/screens/sign_up.dart';
 
-import '../pages/login.dart';
+import 'pages/login.dart';
 import 'firebase_options.dart';
+import 'pages/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

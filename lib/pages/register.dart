@@ -43,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
     passwordInputController.text = widget.password;
   }
 
-  void register() {
+  void _handleRegister() {
     if (passwordInputController.text != passwordConfirmInputController.text) {
       dialogPasswordsMismatch(context);
     }
@@ -125,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: register,
+                        onPressed: _handleRegister,
                         style: TextButton.styleFrom(
                           backgroundColor: LightTheme.foreground,
                           foregroundColor: LightTheme.background,

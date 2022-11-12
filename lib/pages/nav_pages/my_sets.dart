@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:harvesthacks2022/widgets/set_box.dart';
 
 class MySets extends StatelessWidget {
@@ -20,18 +18,21 @@ class MySets extends StatelessWidget {
             var userData = snapshot.data?.data();
             var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
             List<Widget> userLists = [];
-            userSavedSetsRefs.forEach((element) {
+            for (var element in userSavedSetsRefs) {
               var data = element.get().then((DocumentSnapshot doc) {
                 final data = doc.data() as Map<String, dynamic>;
-                userLists.add(SetBox(
+                userLists.add(
+                  SetBox(
                     setName: data["name"],
-                    cardsAmt: data["cardsAmount"],
-                    id: data["id"]));
+                    cardsAmount: data["cardsAmount"],
+                    id: data["id"],
+                  ),
+                );
               });
-            });
+            }
             return ListView(children: userLists);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }
