@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:harvesthacks2022/firebase_options.dart';
 
@@ -11,6 +13,6 @@ class ApiUtil {
     var url = Uri.https(
         'RefactoringAPI.bernygg.repl.co', '/paraphrase', queryParameters);
     final response = await http.get(url);
-    return response.body;
+    return jsonDecode(response.body)["text"];
   }
 }

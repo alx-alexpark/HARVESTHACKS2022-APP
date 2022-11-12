@@ -21,8 +21,8 @@ class MySets extends StatelessWidget {
             var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
             print(userData?["saved"]);
             List<Widget> userLists = [];
-            userSavedSetsRefs.forEach((element) async {
-              var data = await element.get() as DocumentSnapshot;
+            Future.forEach(userSavedSetsRefs, (element) async {
+              var data = await element.get();
               print("Name: ");
               print(data["name"]);
               // print(data.data().toString().contains("name")
