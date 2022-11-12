@@ -19,17 +19,25 @@ class MySets extends StatelessWidget {
           if (snapshot.hasData) {
             var userData = snapshot.data?.data();
             var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
+            print(userData?["saved"]);
             List<Widget> userLists = [];
-            userSavedSetsRefs.forEach((element) {
-              var data = element.get().then((DocumentSnapshot doc) {
-                final data = doc.data() as Map<String, dynamic>;
-                userLists.add(SetBox(
+            userSavedSetsRefs.forEach((element) async {
+              var data = await element.get() as DocumentSnapshot;
+              print("Name: ");
+              print(data["name"]);
+              // print(data.data().toString().contains("name")
+              //     ? data.get("name")
+              //     : "");
+
+              userLists.add(
+                SetBox(
                     setName: data["name"],
-                    cardsAmt: data["cardsAmount"],
-                    id: data["id"]));
-              });
+                    cardsAmt: (data["cards"] as List).length,
+                    id: data["id"]),
+              );
             });
-            return ListView(children: userLists);
+
+            return Center(child: ListView(children: userLists));
           } else {
             return CircularProgressIndicator();
           }
