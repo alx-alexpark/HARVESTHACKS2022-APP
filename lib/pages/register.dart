@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/pages/register.dart';
 
 import '../constants/colors.dart';
 import '../utils/dialogs.dart';
 import '../widgets/form_input.dart';
 import 'home.dart';
 import 'login/waves.dart';
-import 'login/header.dart';
+import '../widgets/header.dart';
 
 class RegisterPage extends StatefulWidget {
   final String email;
@@ -165,7 +164,10 @@ class _RegisterPageState extends State<RegisterPage> {
             // Title (top)
             Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
-              child: const Header(subheading: 'Make your new\naccount'),
+              child: const Header(
+                title: "Unflash",
+                subheading: 'Make your new\naccount',
+              ),
             )
 
             // Waves (bottom)

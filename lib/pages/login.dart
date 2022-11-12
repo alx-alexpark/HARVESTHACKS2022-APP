@@ -7,7 +7,7 @@ import '../constants/colors.dart';
 import '../utils/dialogs.dart';
 import '../widgets/form_input.dart';
 import './login/waves.dart';
-import './login/header.dart';
+import '../widgets/header.dart';
 import './home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -158,7 +158,10 @@ class _LoginPageState extends State<LoginPage> {
             // Title (top)
             Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
-              child: const Header(subheading: 'Sign in to your\naccount'),
+              child: const Header(
+                title: "Unflash",
+                subheading: 'Sign in to your\naccount',
+              ),
             )
 
             // Waves (bottom)

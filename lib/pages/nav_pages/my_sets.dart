@@ -9,31 +9,32 @@ class MySets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("users")
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var userData = snapshot.data?.data();
-            var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
-            List<Widget> userLists = [];
-            for (var element in userSavedSetsRefs) {
-              var data = element.get().then((DocumentSnapshot doc) {
-                final data = doc.data() as Map<String, dynamic>;
-                userLists.add(
-                  SetBox(
-                    setName: data["name"],
-                    cardsAmount: data["cardsAmount"],
-                    id: data["id"],
-                  ),
-                );
-              });
-            }
-            return ListView(children: userLists);
-          } else {
-            return const CircularProgressIndicator();
+      stream: FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var userData = snapshot.data?.data();
+          var userSavedSetsRefs = (userData?["saved"] as List<dynamic>);
+          List<Widget> userLists = [];
+          for (var element in userSavedSetsRefs) {
+            var data = element.get().then((DocumentSnapshot doc) {
+              final data = doc.data() as Map<String, dynamic>;
+              userLists.add(
+                SetBox(
+                  setName: data["name"],
+                  cardsAmount: data["cardsAmount"],
+                  id: data["id"],
+                ),
+              );
+            });
           }
-        });
+          return ListView(children: userLists);
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 }

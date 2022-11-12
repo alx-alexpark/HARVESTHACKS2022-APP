@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import 'nav_pages/account_and_settings.dart';
+import '../constants/colors.dart';
+import 'nav_pages/settings.dart';
 import 'nav_pages/discover.dart';
 import 'nav_pages/my_sets.dart';
 import '../widgets/fade_indexed_stack.dart';
@@ -59,26 +61,31 @@ class __HomePageState extends State<_HomePage> {
         onTap: _handleIndexChanged,
         dotIndicatorColor: Colors.black,
         items: [
-          /// Home
+          // Home
           DotNavigationBarItem(
             icon: const Icon(Icons.home),
-            selectedColor: Colors.purple,
+            selectedColor: GlobalTheme.accent,
           ),
 
-          /// Search
+          // Search
           DotNavigationBarItem(
-            icon: const Icon(Icons.list),
-            selectedColor: Colors.orange,
+            icon: SvgPicture.asset(
+              // TODO: FIX THIS
+              "assets/images/cards.svg",
+              width: 20.0,
+            ),
+            selectedColor: GlobalTheme.accent,
           ),
 
-          /// Profile
+          // Profile
           DotNavigationBarItem(
-            icon: const Icon(Icons.person),
-            selectedColor: Colors.teal,
+            icon: const Icon(Icons.settings),
+            selectedColor: GlobalTheme.accent,
           ),
         ],
       ),
-      // make sure state is kept when switching pages
+
+      // Make sure state is kept when switching pages
       body: FadeIndexedStack(
         index: _selectedTabIndex,
         children: _widgetOptions,
@@ -86,5 +93,3 @@ class __HomePageState extends State<_HomePage> {
     );
   }
 }
-
-// enum _SelectedTab { home, favorite, search, person }

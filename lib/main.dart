@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
                 resizeToAvoidBottomInset: false,
                 body: FirebaseAuth.instance.currentUser != null
                     ? const HomePage()
-                    : LoginPage(),
+                    : const LoginPage(),
                 // : SignupScreen(),
               ),
             ),
