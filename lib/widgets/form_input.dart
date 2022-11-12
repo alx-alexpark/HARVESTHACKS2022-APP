@@ -8,6 +8,7 @@ class FormInput extends StatelessWidget {
   final TextInputType? textInputType;
   final bool obscure;
   final TextEditingController textEditingController;
+  final String? Function(String?)? validator;
 
   const FormInput({
     super.key,
@@ -16,6 +17,7 @@ class FormInput extends StatelessWidget {
     this.textInputType,
     this.obscure = false,
     required this.textEditingController,
+    this.validator,
   });
 
   @override
@@ -44,6 +46,7 @@ class FormInput extends StatelessWidget {
           hintText: prompt,
           hintStyle: StyleConstants.loginHintTextStyle,
         ),
+        validator: validator,
       ),
     );
   }

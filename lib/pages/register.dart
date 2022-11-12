@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harvesthacks2022/pages/register.dart';
 
 import '../constants/colors.dart';
+import '../utils/dialogs.dart';
 import '../widgets/form_input.dart';
+import 'home.dart';
 import 'login/waves.dart';
 import 'login/header.dart';
 
@@ -21,6 +25,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  late TextEditingController usernameInputController;
   late TextEditingController emailInputController;
   late TextEditingController passwordInputController;
   late TextEditingController passwordConfirmInputController;
@@ -29,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
+    usernameInputController = TextEditingController();
     emailInputController = TextEditingController();
     passwordInputController = TextEditingController();
     passwordConfirmInputController = TextEditingController();
@@ -37,10 +43,46 @@ class _RegisterPageState extends State<RegisterPage> {
     passwordInputController.text = widget.password;
   }
 
+  void register() {
+    if (passwordInputController.text != passwordConfirmInputController.text) {
+      dialogPasswordsMismatch(context);
+    }
+
+    if (usernameInputController.text.isNotEmpty) {
+      print("HELLO");
+      // TODO: setup database user initialization
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailInputController.text,
+              password: passwordInputController.text)
+          .then((currentUser) async {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.user!.uid)
+            .set({
+          "username": usernameInputController.text,
+          "email": emailInputController.text,
+          "uid": currentUser.user!.uid,
+          "introduced": false,
+          "courses": [],
+        });
+      });
+      print("sign up");
+      print(FirebaseAuth.instance.currentUser);
+      if (FirebaseAuth.instance.currentUser != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Stack(
@@ -49,6 +91,13 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Inputs
+                FormInput(
+                  icon: Icons.person,
+                  prompt: "Username",
+                  textEditingController: usernameInputController,
+                  textInputType: TextInputType.text,
+                ),
+                const SizedBox(height: 25.0),
                 FormInput(
                   icon: Icons.email,
                   prompt: "Email",
@@ -76,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: register,
                         style: TextButton.styleFrom(
                           backgroundColor: LightTheme.foreground,
                           foregroundColor: LightTheme.background,
@@ -114,7 +163,10 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
 
             // Title (top)
-            const Header(subheading: 'Make your new\naccount'),
+            Visibility(
+              visible: MediaQuery.of(context).viewInsets.bottom == 0,
+              child: const Header(subheading: 'Make your new\naccount'),
+            )
 
             // Waves (bottom)
             // const BottomWaves(),
