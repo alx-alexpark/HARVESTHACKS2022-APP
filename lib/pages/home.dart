@@ -5,6 +5,7 @@ import 'package:harvesthacks2022/constants/colors.dart';
 import 'nav_pages/account_and_settings.dart';
 import 'nav_pages/discover.dart';
 import 'nav_pages/my_sets.dart';
+import 'nav_pages/set_creation.dart';
 import '../widgets/fade_indexed_stack.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,7 +42,7 @@ class __HomePageState extends State<_HomePage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const Discover(),
-    const MySets(),
+    const SetCreationPage(),
     const AccountSettings(),
   ];
 
