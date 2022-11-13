@@ -1,12 +1,17 @@
+// Flutter
 import 'package:flutter/material.dart';
+
+// Navbar
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+
+// Local imports
 import 'package:harvesthacks2022/constants/colors.dart';
 
-import 'nav_pages/account_and_settings.dart';
-import 'nav_pages/discover.dart';
-import 'nav_pages/my_sets.dart';
-import 'nav_pages/set_creation.dart';
-import '../widgets/fade_indexed_stack.dart';
+import 'package:harvesthacks2022/widgets/fade_indexed_stack.dart';
+
+import 'package:harvesthacks2022/pages/nav_pages/account_and_settings.dart';
+import 'package:harvesthacks2022/pages/nav_pages/discover.dart';
+import 'package:harvesthacks2022/pages/nav_pages/set_creation.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

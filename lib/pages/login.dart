@@ -1,14 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter
 import 'package:flutter/material.dart';
 
-import '../pages/register.dart';
-import '../constants/colors.dart';
-import '../utils/dialogs.dart';
-import '../widgets/form_input.dart';
-import './login/waves.dart';
-import './login/header.dart';
-import './home.dart';
+// Firebase
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+// Local imports
+import 'package:harvesthacks2022/constants/colors.dart';
+import 'package:harvesthacks2022/utils/dialogs.dart';
+
+import 'package:harvesthacks2022/widgets/form_input.dart';
+import 'package:harvesthacks2022/widgets/header.dart';
+import 'package:harvesthacks2022/pages/login/waves.dart';
+
+import 'package:harvesthacks2022/pages/register.dart';
+import 'package:harvesthacks2022/pages/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,7 +26,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController emailInputController;
   late TextEditingController passwordInputController;
-  final GlobalKey<FormState> _loginFormKey = GlobalKey();
 
   @override
   void initState() {
@@ -165,7 +170,10 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.all(25),
             child: Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
-              child: const Header(subheading: 'Sign in to your\naccount'),
+              child: const Header(
+                title: "Unflash",
+                subheading: 'Sign in to your\naccount',
+              ),
             ),
           ),
 

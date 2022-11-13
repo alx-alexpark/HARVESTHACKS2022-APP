@@ -1,5 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter
 import 'package:flutter/material.dart';
+
+// Firebase
+import 'package:firebase_auth/firebase_auth.dart';
+
+// Local imports
 import 'package:harvesthacks2022/pages/login.dart';
 
 class AccountSettings extends StatefulWidget {
@@ -19,7 +24,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             FirebaseAuth.instance.signOut();
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => LoginPage(),
+                builder: (context) => const LoginPage(),
               ),
             );
           },

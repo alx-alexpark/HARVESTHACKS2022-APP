@@ -1,7 +1,13 @@
+// Flutter
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/constants/colors.dart';
-import 'package:harvesthacks2022/pages/flashcard_view.dart';
+
+// Firebase
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Local imports
+import 'package:harvesthacks2022/constants/colors.dart';
+
+import 'package:harvesthacks2022/pages/flashcard_view.dart';
 
 class SetBox extends StatelessWidget {
   final String setName;
@@ -23,12 +29,16 @@ class SetBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        // Pull the set with the same id as this widget
         var thisSet = await FirebaseFirestore.instance
             .collection("sets")
             .where("id", isEqualTo: id)
             .get();
+
         var title = (thisSet.docs.first.get("name") as String);
         var terms = (thisSet.docs.first.get("cards") as List);
+
+        // Open FlashcardView of this set
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => FlashcardView(

@@ -1,9 +1,15 @@
+// Flutter
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/pages/discover/search_box.dart';
-import 'package:harvesthacks2022/widgets/set_box.dart';
+
+// Firebase
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../constants/colors.dart';
+// Local iumports
+import 'package:harvesthacks2022/constants/colors.dart';
+
+import 'package:harvesthacks2022/widgets/set_box.dart';
+
+import 'package:harvesthacks2022/pages/discover/search_box.dart';
 
 class Discover extends StatelessWidget {
   const Discover({super.key});
