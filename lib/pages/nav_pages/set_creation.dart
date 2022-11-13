@@ -8,6 +8,8 @@ import 'package:harvesthacks2022/constants/colors.dart';
 // Local imports
 import 'package:harvesthacks2022/pages/set_creations/styled_input.dart';
 
+import '../../widgets/header.dart';
+
 class SetCreationPage extends StatefulWidget {
   const SetCreationPage({super.key});
 
@@ -71,6 +73,8 @@ class _SetCreationPageState extends State<SetCreationPage> {
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: [
+                  const Header(title: "Create"),
+                  const SizedBox(height: 50),
                   StyledInput(
                     label: 'Title',
                     controller: title,
