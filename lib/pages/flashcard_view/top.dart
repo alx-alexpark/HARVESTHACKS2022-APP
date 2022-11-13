@@ -20,7 +20,7 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double percentage = cardsLeft / totalCards;
+    double percentage = 1 - cardsLeft / totalCards;
 
     return Padding(
       padding: const EdgeInsets.all(25.0),
