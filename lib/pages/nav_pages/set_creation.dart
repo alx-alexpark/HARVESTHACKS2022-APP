@@ -7,6 +7,7 @@ import 'package:harvesthacks2022/constants/colors.dart';
 
 // Local imports
 import 'package:harvesthacks2022/pages/set_creations/styled_input.dart';
+import 'package:harvesthacks2022/utils/dialogs.dart';
 
 class SetCreationPage extends StatefulWidget {
   const SetCreationPage({super.key});
@@ -112,7 +113,13 @@ class _SetCreationPageState extends State<SetCreationPage> {
                         };
                       }).toList()
                     });
-                    Navigator.pop(context);
+
+                    title.text = "";
+                    course.text = "";
+                    cards = [];
+                    controllers = [];
+
+                    dialogSuccessfullyCreatedSet(context);
                   },
                   child: const Icon(Icons.check),
                 ),

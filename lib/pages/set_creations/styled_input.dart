@@ -1,6 +1,5 @@
 // Flutter
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Local imports
 import 'package:harvesthacks2022/constants/colors.dart';

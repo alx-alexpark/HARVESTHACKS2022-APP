@@ -1,6 +1,33 @@
 // Flutter
 import 'package:flutter/material.dart';
 
+void dialogSuccessfullyCreatedSet(context) {
+  showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Successfully created your set!',
+        ),
+        actions: [
+          TextButton(
+            child: const Text(
+              'Ok',
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 void dialogMissingEmailOrPassword(context) {
   showDialog(
     context: context,
