@@ -45,7 +45,7 @@ class _FlashcardViewState extends State<FlashcardView> {
           title: widget.title,
           proficient: proficient.length,
           mastered: mastered.length,
-          total: widget.terms.length,
+          total: initialCardsLength,
         ),
 
         // Card
@@ -109,11 +109,15 @@ class _FlashcardViewState extends State<FlashcardView> {
                   setState(() {
                     final e = widget.terms[index];
                     if (proficient.contains(e)) {
+                      // Upgrade proficient to mastered
                       proficient.remove(e);
                       mastered.add(e);
                     } else if (!mastered.contains(e)) {
+                      // Upgrade learning to proficient
                       proficient.add(e);
-                      // widget.terms.remove(e);
+                    } else {
+                      // Delete mastered
+                      widget.terms.remove(e);
                     }
                     index++;
                     if (!flipCardController.state!.isFront) {
@@ -143,27 +147,39 @@ class _FlashcardViewState extends State<FlashcardView> {
           title: widget.title,
           proficient: proficient.length,
           mastered: mastered.length,
-          total: widget.terms.length,
+          total: initialCardsLength,
         ),
 
         // Statistics
+        // Text(
+        //     (widget.terms.length > proficient.length)
+        //         ? (widget.terms.length - proficient.length).toString()
+        //         : "0".toString(),
+        //     style: bigNumber),
         Text(
-            (widget.terms.length > proficient.length)
-                ? (widget.terms.length - proficient.length).toString()
-                : "0".toString(),
-            style: bigNumber),
+          (initialCardsLength - mastered.length - proficient.length).toString(),
+          style: bigNumber,
+        ),
         Container(
           child: const Text("Learning"),
         ),
+        // Text(
+        //   (proficient.length > mastered.length)
+        //       ? (proficient.length - mastered.length).toString()
+        //       : "0",
+        //   style: bigNumber,
+        // ),
         Text(
-            (proficient.length > mastered.length)
-                ? (proficient.length - mastered.length).toString()
-                : "0",
-            style: bigNumber),
+          proficient.length.toString(),
+          style: bigNumber,
+        ),
         Container(
           child: const Text("Proficient"),
         ),
-        Text(mastered.length.toString(), style: bigNumber),
+        Text(
+          mastered.length.toString(),
+          style: bigNumber,
+        ),
         Container(
           child: const Text("Mastered"),
         ),
