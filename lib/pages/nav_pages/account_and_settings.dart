@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:harvesthacks2022/pages/login.dart';
 
 class AccountSettings extends StatefulWidget {
   const AccountSettings({super.key});
@@ -16,10 +17,14 @@ class _AccountSettingsState extends State<AccountSettings> {
         TextButton(
           onPressed: () {
             FirebaseAuth.instance.signOut();
-            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+              ),
+            );
           },
           child: const Text("Log out"),
-        )
+        ),
       ],
     );
   }

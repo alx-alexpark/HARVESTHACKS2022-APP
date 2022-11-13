@@ -82,89 +82,99 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Stack(
               children: [
-                // Inputs
-                FormInput(
-                  icon: Icons.email,
-                  prompt: "Email",
-                  textEditingController: emailInputController,
-                  textInputType: TextInputType.emailAddress,
-                  validator: emailValidator,
-                ),
-                const SizedBox(height: 25.0),
-                FormInput(
-                  icon: Icons.lock,
-                  prompt: "Password",
-                  textEditingController: passwordInputController,
-                  obscure: true,
-                ),
-                const SizedBox(height: 25.0),
-
-                // Login buttons
-                Row(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: _handleLogin,
-                        style: TextButton.styleFrom(
-                          backgroundColor: LightTheme.foreground,
-                          foregroundColor: LightTheme.background,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            side: BorderSide(color: LightTheme.foreground),
-                          ),
-                        ),
-                        child: const Text("Login"),
-                      ),
+                    // Inputs
+                    FormInput(
+                      icon: Icons.email,
+                      prompt: "Email",
+                      textEditingController: emailInputController,
+                      textInputType: TextInputType.emailAddress,
+                      validator: emailValidator,
                     ),
-                    const SizedBox(width: 25.0),
+                    const SizedBox(height: 25.0),
+                    FormInput(
+                      icon: Icons.lock,
+                      prompt: "Password",
+                      textEditingController: passwordInputController,
+                      obscure: true,
+                    ),
+                    const SizedBox(height: 25.0),
 
-                    // Switch to register page
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => RegisterPage(
-                              email: emailInputController.text,
-                              password: passwordInputController.text,
+                    // Login buttons
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: _handleLogin,
+                            style: TextButton.styleFrom(
+                              backgroundColor: LightTheme.foreground,
+                              foregroundColor: LightTheme.background,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                side: BorderSide(color: LightTheme.foreground),
+                              ),
                             ),
-                          ));
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: LightTheme.foreground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            side: BorderSide(
-                              color: LightTheme.foreground,
-                              width: 3.0,
-                            ),
+                            child: const Text("Login"),
                           ),
                         ),
-                        child: const Text("Need an account?"),
-                      ),
+                        const SizedBox(width: 25.0),
+
+                        // Switch to register page
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RegisterPage(
+                                  email: emailInputController.text,
+                                  password: passwordInputController.text,
+                                ),
+                              ));
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              foregroundColor: LightTheme.foreground,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                side: BorderSide(
+                                  color: LightTheme.foreground,
+                                  width: 3.0,
+                                ),
+                              ),
+                            ),
+                            child: const Text("Need an account?"),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
+          ),
 
-            // Title (top)
-            Visibility(
+          // Title (top)
+          Padding(
+            padding: EdgeInsets.all(25),
+            child: Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
               child: const Header(subheading: 'Sign in to your\naccount'),
-            )
+            ),
+          ),
 
-            // Waves (bottom)
-            // const BottomWaves(),
-          ],
-        ),
+          // Waves (bottom)
+          Visibility(
+            visible: MediaQuery.of(context).viewInsets.bottom == 0,
+            child: const BottomWaves(),
+          ),
+        ],
       ),
     );
   }

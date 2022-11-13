@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:harvesthacks2022/constants/colors.dart';
 
 import 'nav_pages/account_and_settings.dart';
 import 'nav_pages/discover.dart';
@@ -62,19 +63,19 @@ class __HomePageState extends State<_HomePage> {
           /// Home
           DotNavigationBarItem(
             icon: const Icon(Icons.home),
-            selectedColor: Colors.purple,
+            selectedColor: GlobalTheme.accent,
           ),
 
           /// Search
           DotNavigationBarItem(
             icon: const Icon(Icons.list),
-            selectedColor: Colors.orange,
+            selectedColor: GlobalTheme.accent,
           ),
 
           /// Profile
           DotNavigationBarItem(
-            icon: const Icon(Icons.person),
-            selectedColor: Colors.teal,
+            icon: const Icon(Icons.settings),
+            selectedColor: GlobalTheme.accent,
           ),
         ],
       ),
@@ -86,5 +87,3 @@ class __HomePageState extends State<_HomePage> {
     );
   }
 }
-
-// enum _SelectedTab { home, favorite, search, person }
