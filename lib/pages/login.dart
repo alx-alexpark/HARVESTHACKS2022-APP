@@ -87,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Padding(
@@ -167,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
 
           // Title (top)
           Padding(
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             child: Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
               child: const Header(

@@ -52,7 +52,8 @@ class _RegisterPageState extends State<RegisterPage> {
       dialogPasswordsMismatch(context);
     }
 
-    if (usernameInputController.text.isNotEmpty) {
+    if (usernameInputController.text.isNotEmpty &&
+        passwordInputController.text.isNotEmpty) {
       print("HELLO");
       // TODO: setup database user initialization
       FirebaseAuth.instance
@@ -60,6 +61,8 @@ class _RegisterPageState extends State<RegisterPage> {
               email: emailInputController.text,
               password: passwordInputController.text)
           .then((currentUser) async {
+        FirebaseAuth.instance.currentUser
+            ?.updateDisplayName(usernameInputController.text);
         FirebaseFirestore.instance
             .collection('users')
             .doc(currentUser.user!.uid)

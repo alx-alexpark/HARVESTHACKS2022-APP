@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 // Firebase
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:harvesthacks2022/constants/colors.dart';
+
+// Local imports
+import 'package:harvesthacks2022/pages/set_creations/styled_input.dart';
 
 class SetCreationPage extends StatefulWidget {
   const SetCreationPage({super.key});
@@ -31,19 +35,24 @@ class _SetCreationPageState extends State<SetCreationPage> {
 
   void addCard() {
     setState(() {
-      var termC = TextEditingController();
-      var definitionC = TextEditingController();
-      controllers.add(TextControllers(term: termC, definition: definitionC));
+      var termController = TextEditingController();
+      var definitionController = TextEditingController();
+
+      controllers.add(TextControllers(
+        term: termController,
+        definition: definitionController,
+      ));
+
       cards.add(
         Column(
           children: [
             Text("term"),
             TextField(
-              controller: termC,
+              controller: termController,
             ),
             Text("definition"),
             TextField(
-              controller: definitionC,
+              controller: definitionController,
             ),
           ],
         ),
@@ -53,44 +62,70 @@ class _SetCreationPageState extends State<SetCreationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text("title"),
-            TextField(
-              controller: title,
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  StyledInput(
+                    label: 'Title',
+                    controller: title,
+                  ),
+                  const Padding(padding: EdgeInsets.all(10)),
+                  StyledInput(
+                    label: 'Course',
+                    controller: course,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: cards,
+                  ),
+                ],
+              ),
             ),
-            Text("course"),
-            TextField(
-              controller: course,
+          ),
+
+          // Add new card
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: Column(
+              children: [
+                FloatingActionButton(
+                  backgroundColor: GlobalTheme.accent,
+                  onPressed: () async {
+                    setsCollection.add({
+                      "name": title.text,
+                      "class": course.text,
+                      "id": "this is useless",
+                      "cards": controllers.map((e) {
+                        return {
+                          "definition": e.definition.text,
+                          "term": e.term.text,
+                          "id": "this is useless"
+                        };
+                      }).toList()
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.check),
+                ),
+                SizedBox(height: 20),
+                FloatingActionButton(
+                  backgroundColor: GlobalTheme.accent,
+                  onPressed: addCard,
+                  child: const Icon(Icons.add),
+                ),
+              ],
             ),
-            Column(
-              children: cards,
-            ),
-            GestureDetector(
-              onTap: addCard,
-              child: Icon(Icons.keyboard_arrow_down_rounded),
-            ),
-            TextButton(
-              onPressed: () async {
-                setsCollection.add({
-                  "name": title.text,
-                  "class": course.text,
-                  "id": "this is useless",
-                  "cards": controllers.map((e) {
-                    return {
-                      "definition": e.definition.text,
-                      "term": e.term.text,
-                      "id": "this is useless"
-                    };
-                  }).toList()
-                });
-              },
-              child: Text("Submit"),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

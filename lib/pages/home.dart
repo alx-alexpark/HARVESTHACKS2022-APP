@@ -9,34 +9,21 @@ import 'package:harvesthacks2022/constants/colors.dart';
 
 import 'package:harvesthacks2022/widgets/fade_indexed_stack.dart';
 
-import 'package:harvesthacks2022/pages/nav_pages/account_and_settings.dart';
+import 'package:harvesthacks2022/pages/nav_pages/settings.dart';
 import 'package:harvesthacks2022/pages/nav_pages/discover.dart';
 import 'package:harvesthacks2022/pages/nav_pages/set_creation.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Unflash',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const _HomePage(),
-    );
-  }
+  State<HomePage> createState() => _HomePageState();
+
+  static _HomePageState of(BuildContext context) =>
+      context.findAncestorStateOfType<_HomePageState>()!;
 }
 
-class _HomePage extends StatefulWidget {
-  const _HomePage();
-
-  @override
-  State<_HomePage> createState() => __HomePageState();
-}
-
-class __HomePageState extends State<_HomePage> {
+class _HomePageState extends State<HomePage> {
   var _selectedTabIndex = 0;
 
   void _handleIndexChanged(int i) {
@@ -66,19 +53,19 @@ class __HomePageState extends State<_HomePage> {
         onTap: _handleIndexChanged,
         dotIndicatorColor: Colors.black,
         items: [
-          /// Home
+          // Home
           DotNavigationBarItem(
             icon: const Icon(Icons.home),
             selectedColor: GlobalTheme.accent,
           ),
 
-          /// Search
+          // Search
           DotNavigationBarItem(
             icon: const Icon(Icons.list),
             selectedColor: GlobalTheme.accent,
           ),
 
-          /// Profile
+          // Profile
           DotNavigationBarItem(
             icon: const Icon(Icons.settings),
             selectedColor: GlobalTheme.accent,

@@ -8,6 +8,8 @@ import 'package:firebase_core/firebase_core.dart';
 // Local imports
 import 'package:harvesthacks2022/firebase_options.dart';
 
+import 'package:harvesthacks2022/widgets/themed_material_app.dart';
+
 import 'package:harvesthacks2022/pages/login.dart';
 import 'package:harvesthacks2022/pages/home.dart';
 
@@ -16,12 +18,18 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -40,16 +48,11 @@ class MyApp extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(fontFamily: 'Montserrat'),
-            home: SafeArea(
-              child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: FirebaseAuth.instance.currentUser != null
-                    ? const HomePage()
-                    : const LoginPage(),
-              ),
+          return ThemedMaterialApp(
+            home: Scaffold(
+              body: FirebaseAuth.instance.currentUser != null
+                  ? const HomePage()
+                  : const LoginPage(),
             ),
           );
         }

@@ -59,9 +59,7 @@ class Discover extends StatelessWidget {
                       return ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: data.length,
-                        separatorBuilder: (_, __) => const SizedBox(
-                          width: 25,
-                        ),
+                        separatorBuilder: (_, __) => const SizedBox(width: 25),
                         itemBuilder: (context, index) {
                           final e = data[index];
 

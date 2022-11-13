@@ -1,5 +1,7 @@
 // Flutter
 import 'package:flutter/material.dart';
+import 'package:harvesthacks2022/pages/flashcard_view.dart';
+import 'package:harvesthacks2022/paraphrase_api.dart';
 
 // Number formatting
 import 'package:intl/intl.dart';
@@ -17,6 +19,7 @@ class TopBar extends StatelessWidget {
   final int proficient;
   final int mastered;
   final int total;
+  final FlashcardView widget;
 
   TopBar({
     super.key,
@@ -24,6 +27,7 @@ class TopBar extends StatelessWidget {
     required this.proficient,
     required this.mastered,
     required this.total,
+    required this.widget,
   });
 
   @override
@@ -48,8 +52,11 @@ class TopBar extends StatelessWidget {
                 child: const Icon(Icons.arrow_back_ios_new),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
+                onTap: () async {
+                  final generated =
+                      (await ApiUtil.paraphrase(widget.terms[0]["definition"]!))
+                          .replaceAll("\n", "");
+                  widget.terms[0]["definition"] = generated;
                 },
                 child: const Icon(Icons.restart_alt),
               ),
