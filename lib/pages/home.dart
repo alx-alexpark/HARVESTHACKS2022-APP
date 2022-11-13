@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
 
           // Search
           DotNavigationBarItem(
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.add),
             selectedColor: GlobalTheme.accent,
           ),
 
