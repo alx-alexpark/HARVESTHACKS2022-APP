@@ -190,7 +190,11 @@ class _FlashcardViewState extends State<FlashcardView> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    index = 0;
+                    if (mastered.length == initialCardsLength) {
+                      Navigator.pop(context);
+                    } else {
+                      index = 0;
+                    }
                   });
                 },
                 child: Container(
@@ -204,7 +208,9 @@ class _FlashcardViewState extends State<FlashcardView> {
                       horizontal: 20.0,
                     ),
                     child: Text(
-                      "Continue",
+                      mastered.length == initialCardsLength
+                          ? "Exit"
+                          : "Continue",
                       style: TextStyle(
                         fontSize: 24.0,
                         color: LightTheme.background,
