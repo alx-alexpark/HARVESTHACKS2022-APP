@@ -62,12 +62,12 @@ class _FlashcardViewState extends State<FlashcardView> {
                   fill: Fill.fillBack,
                   direction: FlipDirection.VERTICAL,
                   front: CardFace(
-                    text: widget.terms[index]["term"]!,
+                    text: def,
                     color: GlobalTheme.accent,
                   ),
                   back: CardFace(
                     // text: widget.terms[index]["definition"]!,
-                    text: def,
+                    text: widget.terms[index]["term"]!,
                     // text: (snapshot.data as String).replaceAll("\n", ""),
                     color: GlobalTheme.accentAlt,
                   ),
