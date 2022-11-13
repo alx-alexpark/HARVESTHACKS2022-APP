@@ -68,7 +68,7 @@ class _FlashcardViewState extends State<FlashcardView> {
             return FlipCard(
               controller: flipCardController,
               fill: Fill.fillBack,
-              direction: FlipDirection.VERTICAL,
+              direction: FlipDirection.HORIZONTAL,
               front: CardFace(
                 text: def,
                 color: GlobalTheme.accent,
