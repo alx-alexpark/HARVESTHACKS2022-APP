@@ -63,7 +63,7 @@ class SetBox extends StatelessWidget {
               Text(
                 setName,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   color: LightTheme.background,
                   fontWeight: FontWeight.bold,
                 ),
@@ -71,7 +71,7 @@ class SetBox extends StatelessWidget {
               Text(
                 "$cardsAmount terms",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 20,
                   color: colorAlt,
                 ),
               )

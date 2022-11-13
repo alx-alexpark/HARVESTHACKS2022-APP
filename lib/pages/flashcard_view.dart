@@ -151,11 +151,6 @@ class _FlashcardViewState extends State<FlashcardView> {
         ),
 
         // Statistics
-        // Text(
-        //     (widget.terms.length > proficient.length)
-        //         ? (widget.terms.length - proficient.length).toString()
-        //         : "0".toString(),
-        //     style: bigNumber),
         Text(
           (initialCardsLength - mastered.length - proficient.length).toString(),
           style: bigNumber,
@@ -163,12 +158,7 @@ class _FlashcardViewState extends State<FlashcardView> {
         Container(
           child: const Text("Learning"),
         ),
-        // Text(
-        //   (proficient.length > mastered.length)
-        //       ? (proficient.length - mastered.length).toString()
-        //       : "0",
-        //   style: bigNumber,
-        // ),
+
         Text(
           proficient.length.toString(),
           style: bigNumber,
@@ -176,6 +166,7 @@ class _FlashcardViewState extends State<FlashcardView> {
         Container(
           child: const Text("Proficient"),
         ),
+
         Text(
           mastered.length.toString(),
           style: bigNumber,

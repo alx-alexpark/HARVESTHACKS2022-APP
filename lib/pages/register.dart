@@ -83,95 +83,105 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Stack(
               children: [
-                // Inputs
-                FormInput(
-                  icon: Icons.person,
-                  prompt: "Username",
-                  textEditingController: usernameInputController,
-                  textInputType: TextInputType.text,
-                ),
-                const SizedBox(height: 25.0),
-                FormInput(
-                  icon: Icons.email,
-                  prompt: "Email",
-                  textEditingController: emailInputController,
-                  textInputType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 25.0),
-                FormInput(
-                  icon: Icons.lock,
-                  prompt: "Password",
-                  textEditingController: passwordInputController,
-                  obscure: true,
-                ),
-                const SizedBox(height: 25.0),
-                FormInput(
-                  icon: Icons.lock,
-                  prompt: "Confirm password",
-                  textEditingController: passwordConfirmInputController,
-                  obscure: true,
-                ),
-                const SizedBox(height: 25.0),
-
-                // Register buttons
-                Row(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: _handleRegister,
-                        style: TextButton.styleFrom(
-                          backgroundColor: LightTheme.foreground,
-                          foregroundColor: LightTheme.background,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            side: BorderSide(color: LightTheme.foreground),
-                          ),
-                        ),
-                        child: const Text("Register"),
-                      ),
+                    // Inputs
+                    FormInput(
+                      icon: Icons.person,
+                      prompt: "Username",
+                      textEditingController: usernameInputController,
+                      textInputType: TextInputType.text,
                     ),
-                    const SizedBox(width: 25.0),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: LightTheme.foreground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            side: BorderSide(
-                              color: LightTheme.foreground,
-                              width: 3.0,
+                    const SizedBox(height: 25.0),
+                    FormInput(
+                      icon: Icons.email,
+                      prompt: "Email",
+                      textEditingController: emailInputController,
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 25.0),
+                    FormInput(
+                      icon: Icons.lock,
+                      prompt: "Password",
+                      textEditingController: passwordInputController,
+                      obscure: true,
+                    ),
+                    const SizedBox(height: 25.0),
+                    FormInput(
+                      icon: Icons.lock,
+                      prompt: "Confirm password",
+                      textEditingController: passwordConfirmInputController,
+                      obscure: true,
+                    ),
+                    const SizedBox(height: 25.0),
+
+                    // Register buttons
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: _handleRegister,
+                            style: TextButton.styleFrom(
+                              backgroundColor: LightTheme.foreground,
+                              foregroundColor: LightTheme.background,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                side: BorderSide(color: LightTheme.foreground),
+                              ),
                             ),
+                            child: const Text("Register"),
                           ),
                         ),
-                        child: const Text("Already a user?"),
-                      ),
+                        const SizedBox(width: 25.0),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              foregroundColor: LightTheme.foreground,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                side: BorderSide(
+                                  color: LightTheme.foreground,
+                                  width: 3.0,
+                                ),
+                              ),
+                            ),
+                            child: const Text("Already a user?"),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
+          ),
 
-            // Title (top)
-            Visibility(
+          // Title (top)
+          Padding(
+            padding: EdgeInsets.all(25),
+            child: Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
               child: const Header(subheading: 'Make your new\naccount'),
-            )
+            ),
+          ),
 
-            // Waves (bottom)
-            // const BottomWaves(),
-          ],
-        ),
+          // Waves (bottom)
+          Visibility(
+            visible: MediaQuery.of(context).viewInsets.bottom == 0,
+            child: const BottomWaves(),
+          ),
+        ],
       ),
     );
   }

@@ -6,12 +6,11 @@ class BottomWaves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    return Positioned.fill(
       bottom: 0.0,
-      width: MediaQuery.of(context).size.width,
       child: SvgPicture.asset(
         'assets/images/waves.svg',
-        semanticsLabel: 'Waves',
+        alignment: Alignment.bottomCenter,
       ),
     );
   }
