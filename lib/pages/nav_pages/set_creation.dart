@@ -46,11 +46,11 @@ class _SetCreationPageState extends State<SetCreationPage> {
       cards.add(
         Column(
           children: [
-            Text("term"),
+            const Text("term"),
             TextField(
               controller: termController,
             ),
-            Text("definition"),
+            const Text("definition"),
             TextField(
               controller: definitionController,
             ),
@@ -116,7 +116,7 @@ class _SetCreationPageState extends State<SetCreationPage> {
                   },
                   child: const Icon(Icons.check),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 FloatingActionButton(
                   backgroundColor: GlobalTheme.accent,
                   onPressed: addCard,
