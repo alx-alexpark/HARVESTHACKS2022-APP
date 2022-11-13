@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -15,6 +16,10 @@ class _SetCreationPageState extends State<SetCreationPage> {
   late TextEditingController course;
 
   List<Widget> cards = [];
+  List<TextControllers> controllers = [];
+
+  CollectionReference setsCollection =
+      FirebaseFirestore.instance.collection("sets");
 
   @override
   void initState() {
@@ -26,13 +31,20 @@ class _SetCreationPageState extends State<SetCreationPage> {
 
   void addCard() {
     setState(() {
+      var termC = TextEditingController();
+      var definitionC = TextEditingController();
+      controllers.add(TextControllers(term: termC, definition: definitionC));
       cards.add(
         Column(
           children: [
             Text("term"),
-            TextField(),
+            TextField(
+              controller: termC,
+            ),
             Text("definition"),
-            TextField(),
+            TextField(
+              controller: definitionC,
+            ),
           ],
         ),
       );
@@ -61,7 +73,20 @@ class _SetCreationPageState extends State<SetCreationPage> {
               child: Icon(Icons.keyboard_arrow_down_rounded),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                setsCollection.add({
+                  "name": title.text,
+                  "class": course.text,
+                  "id": "this is useless",
+                  "cards": controllers.map((e) {
+                    return {
+                      "definition": e.definition.text,
+                      "term": e.term.text,
+                      "id": "this is useless"
+                    };
+                  }).toList()
+                });
+              },
               child: Text("Submit"),
             ),
           ],
@@ -69,4 +94,14 @@ class _SetCreationPageState extends State<SetCreationPage> {
       ),
     );
   }
+}
+
+class TextControllers {
+  final TextEditingController term;
+  final TextEditingController definition;
+
+  TextControllers({
+    required this.term,
+    required this.definition,
+  });
 }
