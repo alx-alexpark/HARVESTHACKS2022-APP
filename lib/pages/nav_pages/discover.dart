@@ -67,9 +67,7 @@ class Discover extends StatelessWidget {
                             setName: e.data().toString().contains("name")
                                 ? e.get("name")
                                 : "",
-                            id: e.data().toString().contains("id")
-                                ? e.get("id")
-                                : "",
+                            id: e.id,
                             color: GlobalTheme.accent,
                             colorAlt: GlobalTheme.accentAlt,
                           );

@@ -23,12 +23,10 @@ class SetBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        var thisSet = await FirebaseFirestore.instance
-            .collection("sets")
-            .where("id", isEqualTo: id)
-            .get();
-        var title = (thisSet.docs.first.get("name") as String);
-        var terms = (thisSet.docs.first.get("cards") as List);
+        var thisSet =
+            await FirebaseFirestore.instance.collection("sets").doc(id).get();
+        var title = (thisSet.data()?["name"] as String);
+        var terms = (thisSet.data()?["cards"] as List);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => FlashcardView(
