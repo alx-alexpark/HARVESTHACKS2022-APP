@@ -1,12 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// Flutter
+import 'package:flutter/material.dart';
+
+// Flashcard widget
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
-import 'package:flutter/material.dart';
+
+// Local imports
 import 'package:harvesthacks2022/constants/colors.dart';
-import 'package:harvesthacks2022/pages/flashcard_view/top.dart';
-import 'package:harvesthacks2022/widgets/card_face.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:harvesthacks2022/paraphrase_api.dart';
+
+import 'package:harvesthacks2022/widgets/card_face.dart';
+
+import 'package:harvesthacks2022/pages/flashcard_view/top.dart';
 
 class FlashcardView extends StatefulWidget {
   final String title;

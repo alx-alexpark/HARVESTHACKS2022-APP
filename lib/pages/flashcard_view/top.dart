@@ -1,8 +1,14 @@
+// Flutter
 import 'package:flutter/material.dart';
+
+// Number formatting
 import 'package:intl/intl.dart';
+
+// Progress bar
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../../constants/colors.dart';
+// Local imports
+import 'package:harvesthacks2022/constants/colors.dart';
 
 class TopBar extends StatelessWidget {
   final percentFormat = NumberFormat('##0%', 'EN_US');
@@ -85,7 +91,6 @@ class TopBar extends StatelessWidget {
                   lineHeight: 30.0,
                   animationDuration: 1000,
                   percent: proficientPercentage,
-                  linearStrokeCap: LinearStrokeCap.roundAll,
                   progressColor: GlobalTheme.accent,
                   backgroundColor: LightTheme.foreground,
                   barRadius: const Radius.circular(15.0),
@@ -99,7 +104,6 @@ class TopBar extends StatelessWidget {
                   lineHeight: 30.0,
                   animationDuration: 1000,
                   percent: masteredPercentage,
-                  linearStrokeCap: LinearStrokeCap.roundAll,
                   progressColor: GlobalTheme.accentAlt,
                   backgroundColor: Colors.transparent,
                   barRadius: const Radius.circular(15.0),

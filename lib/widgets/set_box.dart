@@ -1,7 +1,13 @@
+// Flutter
 import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/constants/colors.dart';
-import 'package:harvesthacks2022/pages/flashcard_view.dart';
+
+// Firebase
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Local imports
+import 'package:harvesthacks2022/constants/colors.dart';
+
+import 'package:harvesthacks2022/pages/flashcard_view.dart';
 
 class SetBox extends StatelessWidget {
   final String setName;

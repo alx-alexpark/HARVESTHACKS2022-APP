@@ -1,4 +1,7 @@
+// Flutter
 import 'package:flutter/material.dart';
+
+// SVG widget
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomWaves extends StatelessWidget {

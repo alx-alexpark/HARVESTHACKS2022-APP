@@ -1,8 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+// Flutter
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+// Firebase
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SetCreationPage extends StatefulWidget {
   const SetCreationPage({super.key});

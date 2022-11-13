@@ -1,4 +1,7 @@
+// Flutter
 import 'package:flutter/material.dart';
+
+// Local imports
 import 'package:harvesthacks2022/constants/colors.dart';
 
 class SearchBox extends StatelessWidget {

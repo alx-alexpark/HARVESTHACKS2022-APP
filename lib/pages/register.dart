@@ -1,14 +1,19 @@
+// Flutter
+import 'package:flutter/material.dart';
+
+// Firebase
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:harvesthacks2022/pages/register.dart';
 
-import '../constants/colors.dart';
-import '../utils/dialogs.dart';
-import '../widgets/form_input.dart';
-import 'home.dart';
-import 'login/waves.dart';
-import 'login/header.dart';
+// Local imports
+import 'package:harvesthacks2022/constants/colors.dart';
+import 'package:harvesthacks2022/utils/dialogs.dart';
+
+import 'package:harvesthacks2022/widgets/form_input.dart';
+import 'package:harvesthacks2022/widgets/header.dart';
+import 'package:harvesthacks2022/pages/login/waves.dart';
+
+import 'package:harvesthacks2022/pages/home.dart';
 
 class RegisterPage extends StatefulWidget {
   final String email;
@@ -29,7 +34,6 @@ class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController emailInputController;
   late TextEditingController passwordInputController;
   late TextEditingController passwordConfirmInputController;
-  final GlobalKey<FormState> _loginFormKey = GlobalKey();
 
   @override
   void initState() {
@@ -169,10 +173,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
           // Title (top)
           Padding(
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             child: Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
-              child: const Header(subheading: 'Make your new\naccount'),
+              child: const Header(
+                title: "Unflash",
+                subheading: 'Make your new\naccount',
+              ),
             ),
           ),
 

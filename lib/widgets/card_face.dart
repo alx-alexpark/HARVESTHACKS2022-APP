@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-
 class CardFace extends StatelessWidget {
   final String text;
   final Color color;

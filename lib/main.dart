@@ -1,10 +1,15 @@
+// Flutter
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-import 'pages/login.dart';
-import 'firebase_options.dart';
-import 'pages/home.dart';
+// Firebase
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+// Local imports
+import 'package:harvesthacks2022/firebase_options.dart';
+
+import 'package:harvesthacks2022/pages/login.dart';
+import 'package:harvesthacks2022/pages/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +48,7 @@ class MyApp extends StatelessWidget {
                 resizeToAvoidBottomInset: false,
                 body: FirebaseAuth.instance.currentUser != null
                     ? const HomePage()
-                    : LoginPage(),
-                // : SignupScreen(),
+                    : const LoginPage(),
               ),
             ),
           );

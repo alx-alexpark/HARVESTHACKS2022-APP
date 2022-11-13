@@ -1,5 +1,8 @@
+// Flutter
 import 'package:flutter/material.dart';
-import '../../constants/colors.dart';
+
+// Local imports
+import 'package:harvesthacks2022/constants/colors.dart';
 
 class StyleConstants {
   static const TextStyle onboardingText =

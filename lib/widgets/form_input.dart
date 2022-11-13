@@ -1,6 +1,8 @@
+// Flutter
 import 'package:flutter/material.dart';
 
-import '../constants/styles.dart';
+// Local imports
+import 'package:harvesthacks2022/constants/styles.dart';
 
 class FormInput extends StatelessWidget {
   final IconData icon;
