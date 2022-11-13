@@ -51,6 +51,7 @@ class _FlashcardViewState extends State<FlashcardView> {
           proficient: proficient.length,
           mastered: mastered.length,
           total: initialCardsLength,
+          widget: widget,
         ),
 
         // Card
@@ -153,6 +154,7 @@ class _FlashcardViewState extends State<FlashcardView> {
           proficient: proficient.length,
           mastered: mastered.length,
           total: initialCardsLength,
+          widget: widget,
         ),
 
         // Statistics

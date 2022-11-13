@@ -7,6 +7,7 @@ import 'package:harvesthacks2022/constants/colors.dart';
 
 // Local imports
 import 'package:harvesthacks2022/pages/settings/user.dart';
+import 'package:harvesthacks2022/utils/storage_manager.dart';
 import 'package:harvesthacks2022/widgets/header.dart';
 
 class AccountSettings extends StatefulWidget {

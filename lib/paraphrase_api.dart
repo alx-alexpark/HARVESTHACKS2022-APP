@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:harvesthacks2022/firebase_options.dart';
+import 'package:intl/number_symbols_data.dart';
 
 class ApiUtil {
   static List<double> temps = [0.4, 0.7, 1];
@@ -22,12 +24,9 @@ class ApiUtil {
       'temp': currentTemp.toString(),
       'model': currentModel.toString(),
     };
-    print('a');
     var url = Uri.https(
         'RefactoringAPI.bernygg.repl.co', '/paraphrase', queryParameters);
-    print('b');
     final response = await http.get(url);
-    print('c');
     return jsonDecode(response.body)["text"];
   }
 
