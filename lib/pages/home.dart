@@ -87,5 +87,3 @@ class __HomePageState extends State<_HomePage> {
     );
   }
 }
-
-// enum _SelectedTab { home, favorite, search, person }

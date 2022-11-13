@@ -17,6 +17,7 @@ class CardFace extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       height: MediaQuery.of(context).size.width * 0.6,
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(15.0),

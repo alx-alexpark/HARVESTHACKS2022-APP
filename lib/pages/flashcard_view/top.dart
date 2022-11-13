@@ -7,80 +7,111 @@ import '../../constants/colors.dart';
 class TopBar extends StatelessWidget {
   final percentFormat = NumberFormat('##0%', 'EN_US');
 
-  final String author;
-  final int cardsLeft;
-  final int totalCards;
+  final String title;
+  final int proficient;
+  final int mastered;
+  final int total;
 
   TopBar({
     super.key,
-    required this.author,
-    required this.cardsLeft,
-    required this.totalCards,
+    required this.title,
+    required this.proficient,
+    required this.mastered,
+    required this.total,
   });
 
   @override
   Widget build(BuildContext context) {
-    double percentage = 1 - cardsLeft / totalCards;
+    final wordsLeft = total - mastered;
+    double proficientPercentage = proficient / total;
+    double masteredPercentage = mastered / total;
 
     return Padding(
       padding: const EdgeInsets.all(25.0),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: GlobalTheme.accent,
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              child: const Icon(Icons.arrow_back_ios_rounded),
-            ),
-          ),
-
-          const SizedBox(width: 10.0),
-
-          // Name and word count
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          // Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Name
-              Text(
-                author,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: LightTheme.foreground,
-                ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.arrow_back_ios_new),
               ),
-
-              // Word count
-              Text(
-                "$cardsLeft words left",
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: LightTheme.foregroundAlt,
-                ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.restart_alt),
               ),
             ],
           ),
 
-          // Progress bar
-          Expanded(
-            child: LinearPercentIndicator(
-              animation: true,
-              lineHeight: 20.0,
-              animationDuration: 2500,
-              percent: percentage,
-              linearStrokeCap: LinearStrokeCap.roundAll,
-              progressColor: Colors.green,
-              barRadius: const Radius.circular(15.0),
-              center: Text(
-                percentFormat.format(percentage),
-              ),
+          // Text
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: LightTheme.foreground,
+                  ),
+                ),
+                Text(
+                  "$wordsLeft words left",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: LightTheme.foregroundAlt,
+                  ),
+                ),
+              ],
             ),
+          ),
+
+          // Progress bar
+          Stack(
+            children: [
+              Expanded(
+                child: LinearPercentIndicator(
+                  animation: true,
+                  animateFromLastPercent: true,
+                  curve: Curves.elasticInOut,
+                  lineHeight: 30.0,
+                  animationDuration: 500,
+                  percent: proficientPercentage,
+                  linearStrokeCap: LinearStrokeCap.roundAll,
+                  progressColor: GlobalTheme.accent,
+                  backgroundColor: LightTheme.foreground,
+                  barRadius: const Radius.circular(15.0),
+                ),
+              ),
+              Expanded(
+                child: LinearPercentIndicator(
+                  animation: true,
+                  animateFromLastPercent: true,
+                  curve: Curves.elasticInOut,
+                  lineHeight: 30.0,
+                  animationDuration: 500,
+                  percent: masteredPercentage,
+                  linearStrokeCap: LinearStrokeCap.roundAll,
+                  progressColor: GlobalTheme.accentAlt,
+                  backgroundColor: Colors.transparent,
+                  barRadius: const Radius.circular(15.0),
+                  center: Text(
+                    "${percentFormat.format(masteredPercentage)} mastery",
+                    style: TextStyle(
+                      color: LightTheme.foreground,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

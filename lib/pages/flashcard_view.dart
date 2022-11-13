@@ -9,10 +9,12 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:harvesthacks2022/paraphrase_api.dart';
 
 class FlashcardView extends StatefulWidget {
+  final String title;
   final List terms;
 
   const FlashcardView({
     super.key,
+    required this.title,
     required this.terms,
   });
 
@@ -24,8 +26,8 @@ class _FlashcardViewState extends State<FlashcardView> {
   late FlipCardController flipCardController;
   late int initialCardsLength;
   int index = 0;
-  List partiallyMaster = [];
-  List master = [];
+  List proficient = [];
+  List mastered = [];
 
   @override
   void initState() {
@@ -40,42 +42,46 @@ class _FlashcardViewState extends State<FlashcardView> {
       children: [
         // Top
         TopBar(
-          author: "John Doe",
-          cardsLeft: widget.terms.length,
-          totalCards: initialCardsLength,
+          title: widget.title,
+          proficient: proficient.length,
+          mastered: mastered.length,
+          total: widget.terms.length,
         ),
 
         // Card
         FutureBuilder<Object>(
-            future: ApiUtil.paraphrase(widget.terms[index]["definition"]!),
-            builder: (context, snapshot) {
-              String def = widget.terms[index]["definition"]!;
-              if (partiallyMaster.contains(widget.terms[index])) {
-                print(partiallyMaster);
-                print("seen before!");
-                if (snapshot.data != null)
-                  def = (snapshot.data as String).replaceAll("\n", "");
+          future: ApiUtil.paraphrase(widget.terms[index]["definition"]!),
+          builder: (context, snapshot) {
+            String def = widget.terms[index]["definition"]!;
+            if (proficient.contains(widget.terms[index])) {
+              print(proficient);
+              print("seen before!");
+              if (snapshot.data != null) {
+                def = (snapshot.data as String).replaceAll("\n", "");
               }
-              if (snapshot.hasData) {
-                return FlipCard(
-                  controller: flipCardController,
-                  fill: Fill.fillBack,
-                  direction: FlipDirection.VERTICAL,
-                  front: CardFace(
-                    text: def,
-                    color: GlobalTheme.accent,
-                  ),
-                  back: CardFace(
-                    // text: widget.terms[index]["definition"]!,
-                    text: widget.terms[index]["term"]!,
-                    // text: (snapshot.data as String).replaceAll("\n", ""),
-                    color: GlobalTheme.accentAlt,
-                  ),
-                );
-              } else {
-                return CircularProgressIndicator();
-              }
-            }),
+            }
+
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+
+            return FlipCard(
+              controller: flipCardController,
+              fill: Fill.fillBack,
+              direction: FlipDirection.VERTICAL,
+              front: CardFace(
+                text: def,
+                color: GlobalTheme.accent,
+              ),
+              back: CardFace(
+                // text: widget.terms[index]["definition"]!,
+                text: widget.terms[index]["term"]!,
+                // text: (snapshot.data as String).replaceAll("\n", ""),
+                color: GlobalTheme.accentAlt,
+              ),
+            );
+          },
+        ),
 
         // Bottom
         Padding(
@@ -101,12 +107,13 @@ class _FlashcardViewState extends State<FlashcardView> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (!partiallyMaster.contains(widget.terms[index])) {
-                      partiallyMaster.add(widget.terms[index]);
-                    } else if (partiallyMaster.contains(widget.terms[index])) {
-                      master.add(widget.terms[index]);
-                      widget.terms.remove(widget.terms[index]);
-                      // partiallyMaster.remove(widget.terms[index]);
+                    final e = widget.terms[index];
+                    if (proficient.contains(e)) {
+                      proficient.remove(e);
+                      mastered.add(e);
+                    } else if (!mastered.contains(e)) {
+                      proficient.add(e);
+                      // widget.terms.remove(e);
                     }
                     index++;
                     if (!flipCardController.state!.isFront) {
@@ -133,30 +140,30 @@ class _FlashcardViewState extends State<FlashcardView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TopBar(
-          author: "John Doe",
-          cardsLeft: widget.terms.length,
-          totalCards: initialCardsLength,
+          title: widget.title,
+          proficient: proficient.length,
+          mastered: mastered.length,
+          total: widget.terms.length,
         ),
 
         // Statistics
-
         Text(
-            (widget.terms.length > partiallyMaster.length)
-                ? (widget.terms.length - partiallyMaster.length).toString()
+            (widget.terms.length > proficient.length)
+                ? (widget.terms.length - proficient.length).toString()
                 : "0".toString(),
             style: bigNumber),
         Container(
           child: const Text("Learning"),
         ),
         Text(
-            (partiallyMaster.length > master.length)
-                ? (partiallyMaster.length - master.length).toString()
+            (proficient.length > mastered.length)
+                ? (proficient.length - mastered.length).toString()
                 : "0",
             style: bigNumber),
         Container(
           child: const Text("Proficient"),
         ),
-        Text(master.length.toString(), style: bigNumber),
+        Text(mastered.length.toString(), style: bigNumber),
         Container(
           child: const Text("Mastered"),
         ),
