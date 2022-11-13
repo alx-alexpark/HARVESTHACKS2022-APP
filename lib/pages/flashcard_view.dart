@@ -12,14 +12,12 @@ import 'package:harvesthacks2022/paraphrase_api.dart';
 import 'package:harvesthacks2022/widgets/card_face.dart';
 
 import 'package:harvesthacks2022/pages/flashcard_view/top.dart';
-import 'package:harvesthacks2022/widgets/card_overlay.dart';
-import 'package:swipable_stack/swipable_stack.dart';
 
 class FlashcardView extends StatefulWidget {
   final String title;
-  List terms;
+  final List terms;
 
-  FlashcardView({
+  const FlashcardView({
     super.key,
     required this.title,
     required this.terms,
@@ -32,10 +30,9 @@ class FlashcardView extends StatefulWidget {
 class _FlashcardViewState extends State<FlashcardView> {
   late FlipCardController flipCardController;
   late int initialCardsLength;
+  int index = 0;
   List proficient = [];
   List mastered = [];
-
-  List nextList = [];
 
   @override
   void initState() {
@@ -44,8 +41,111 @@ class _FlashcardViewState extends State<FlashcardView> {
     initialCardsLength = widget.terms.length;
   }
 
+  Widget _cardsView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Top
+        TopBar(
+          title: widget.title,
+          proficient: proficient.length,
+          mastered: mastered.length,
+          total: initialCardsLength,
+          widget: widget,
+        ),
+
+        // Card
+        FutureBuilder<Object>(
+          future: ApiUtil.paraphrase(widget.terms[index]["definition"]!),
+          builder: (context, snapshot) {
+            String def = widget.terms[index]["definition"]!;
+            if (proficient.contains(widget.terms[index])) {
+              print(proficient);
+              print("seen before!");
+              if (snapshot.data != null) {
+                def = (snapshot.data as String).replaceAll("\n", "");
+              }
+            }
+
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+
+            return FlipCard(
+              controller: flipCardController,
+              fill: Fill.fillBack,
+              direction: FlipDirection.HORIZONTAL,
+              front: CardFace(
+                text: def,
+                color: GlobalTheme.accent,
+              ),
+              back: CardFace(
+                // text: widget.terms[index]["definition"]!,
+                text: widget.terms[index]["term"]!,
+                // text: (snapshot.data as String).replaceAll("\n", ""),
+                color: GlobalTheme.accentAlt,
+              ),
+            );
+          },
+        ),
+
+        // Bottom
+        Padding(
+          padding: const EdgeInsets.only(bottom: 40.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    index++;
+                    if (!flipCardController.state!.isFront) {
+                      flipCardController.toggleCard();
+                    }
+                  });
+                },
+                child: const Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                  size: 75.0,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    final e = widget.terms[index];
+                    if (proficient.contains(e)) {
+                      // Upgrade proficient to mastered
+                      proficient.remove(e);
+                      mastered.add(e);
+                    } else if (!mastered.contains(e)) {
+                      // Upgrade learning to proficient
+                      proficient.add(e);
+                    } else {
+                      // Delete mastered
+                      widget.terms.remove(e);
+                    }
+                    index++;
+                    if (!flipCardController.state!.isFront) {
+                      flipCardController.toggleCard();
+                    }
+                  });
+                },
+                child: const Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 75.0,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _resultsView() {
-    TextStyle bigNumber = const TextStyle(fontSize: 35);
+    TextStyle bigNumber = TextStyle(fontSize: 35);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -62,31 +162,35 @@ class _FlashcardViewState extends State<FlashcardView> {
           (initialCardsLength - mastered.length - proficient.length).toString(),
           style: bigNumber,
         ),
-        const Text("Learning"),
+        Container(
+          child: const Text("Learning"),
+        ),
 
         Text(
           proficient.length.toString(),
           style: bigNumber,
         ),
-        const Text("Proficient"),
+        Container(
+          child: const Text("Proficient"),
+        ),
 
         Text(
           mastered.length.toString(),
           style: bigNumber,
         ),
-        const Text("Mastered"),
+        Container(
+          child: const Text("Mastered"),
+        ),
 
         Padding(
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
                 onPressed: () {
                   setState(() {
-                    if (widget.terms.isEmpty) {
-                      widget.terms = nextList;
-                    }
+                    index = 0;
                   });
                 },
                 child: Container(
@@ -121,86 +225,7 @@ class _FlashcardViewState extends State<FlashcardView> {
     // View the cards if not at the end,
     // otherwise, view the results screen
     return Scaffold(
-      // body: (index < widget.terms.length) ? _cardsView() : _resultsView(),
-      body: Stack(
-        children: [
-          _resultsView(),
-          SwipableStack(
-            allowVerticalSwipe: false,
-            onSwipeCompleted: (_, direction) {
-              setState(() {
-                final e = widget.terms[0];
-                if (direction == SwipeDirection.right) {
-                  if (proficient.contains(e)) {
-                    // Upgrade proficient to mastered
-                    proficient.remove(e);
-                    mastered.add(e);
-
-                    nextList.add(e);
-                  } else if (!mastered.contains(e)) {
-                    // Upgrade learning to proficient
-                    proficient.add(e);
-
-                    nextList.add(e);
-                  } // Mastered elements are ignored
-
-                } else {
-                  nextList.add(e);
-                }
-
-                widget.terms.removeAt(0);
-              });
-            },
-            itemCount: widget.terms.length,
-            builder: (context, swipeProperty) {
-              return Stack(
-                children: [
-                  FutureBuilder<Widget>(
-                    future: buildCard(),
-                    builder: (context, snapshot) {
-                      return snapshot.data ?? const CircularProgressIndicator();
-                    },
-                  ),
-
-                  // more custom overlay possible than with overlayBuilder
-                  if (swipeProperty.stackIndex == 0 &&
-                      swipeProperty.direction != null)
-                    CardOverlay(
-                      swipeProgress: swipeProperty.swipeProgress,
-                      direction: swipeProperty.direction!,
-                    )
-                ],
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<Widget> buildCard() async {
-    String def = widget.terms[0]["definition"]!;
-
-    if (proficient.contains(widget.terms[0])) {
-      final generated = await ApiUtil.paraphrase(def);
-      def = generated.replaceAll("\n", "");
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 180),
-      child: FlipCard(
-        controller: flipCardController,
-        fill: Fill.fillBack,
-        direction: FlipDirection.HORIZONTAL,
-        front: CardFace(
-          text: def,
-          color: GlobalTheme.accent,
-        ),
-        back: CardFace(
-          text: widget.terms[0]["term"]!,
-          color: GlobalTheme.accentAlt,
-        ),
-      ),
+      body: (index < widget.terms.length) ? _cardsView() : _resultsView(),
     );
   }
 }
